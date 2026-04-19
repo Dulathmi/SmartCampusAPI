@@ -14,6 +14,8 @@ This is a RESTful API I built using JAX-RS (Jersey) for the University's Smart C
 - Maven
 
 ## Project Structure
+
+```
 src/main/java/com/smartcampus/
 ├── Main.java
 ├── SmartCampusApplication.java
@@ -33,6 +35,7 @@ src/main/java/com/smartcampus/
 ├── SensorUnavailableExceptionMapper.java
 ├── GlobalExceptionMapper.java
 └── LoggingFilter.java
+```
 
 ## How to Build and Run
 
