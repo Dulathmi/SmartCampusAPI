@@ -80,6 +80,15 @@ mvn clean install
 | GET | /api/v1/sensors/{sensorId}/readings | Get all readings for a sensor |
 | POST | /api/v1/sensors/{sensorId}/readings | Add a new reading (fails with 403 if MAINTENANCE) |
 
+## Error Handling
+
+| Status Code | Scenario |
+|-------------|----------|
+| 409 Conflict | Deleting a room that still has sensors |
+| 422 Unprocessable Entity | Creating a sensor with a roomId that doesn't exist |
+| 403 Forbidden | Posting a reading to a sensor under MAINTENANCE |
+| 500 Internal Server Error | Any unexpected runtime error (caught by GlobalExceptionMapper) |
+
 ## Sample curl Commands
 
 These are some example curl commands you can run in the terminal to test the API:
