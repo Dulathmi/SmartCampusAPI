@@ -65,19 +65,20 @@ mvn clean install
 
 ## API Endpoints
 
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | /api/v1/ | Discovery endpoint |
 | GET | /api/v1/rooms | Get all rooms |
 | POST | /api/v1/rooms | Create a new room |
 | GET | /api/v1/rooms/{roomId} | Get a specific room |
-| DELETE | /api/v1/rooms/{roomId} | Delete a room |
+| DELETE | /api/v1/rooms/{roomId} | Delete a room (fails with 409 if sensors exist) |
 | GET | /api/v1/sensors | Get all sensors |
 | GET | /api/v1/sensors?type={type} | Filter sensors by type |
 | POST | /api/v1/sensors | Create a new sensor |
 | GET | /api/v1/sensors/{sensorId} | Get a specific sensor |
-| GET | /api/v1/sensors/{sensorId}/readings | Get all readings |
-| POST | /api/v1/sensors/{sensorId}/readings | Add a new reading |
+| GET | /api/v1/sensors/{sensorId}/readings | Get all readings for a sensor |
+| POST | /api/v1/sensors/{sensorId}/readings | Add a new reading (fails with 403 if MAINTENANCE) |
 
 ## Sample curl Commands
 
