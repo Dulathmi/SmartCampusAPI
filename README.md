@@ -105,27 +105,67 @@ curl -X GET http://localhost:8080/api/v1/rooms
 
 **3. Create a New Room**
 ```bash
-curl -X POST http://localhost:8080/api/v1/rooms -H "Content-Type: application/json" -d "{\"id\":\"HALL-101\",\"name\":\"Main Hall\",\"capacity\":100}"
+curl -X POST http://localhost:8080/api/v1/rooms -H "Content-Type: application/json" -d "{\"id\":\"HALL-202\",\"name\":\"Main Hall\",\"capacity\":100}"
 ```
 
-**4. Create a New Sensor**
+**4. Get Specific Room**
 ```bash
-curl -X POST http://localhost:8080/api/v1/sensors -H "Content-Type: application/json" -d "{\"id\":\"OCC-001\",\"type\":\"Occupancy\",\"status\":\"ACTIVE\",\"currentValue\":0.0,\"roomId\":\"LAB-101\"}"
+curl -X GET http://localhost:8080/api/v1/rooms/HALL-202
 ```
 
-**5. Add a Sensor Reading**
+**5. Delete Room with Sensors (409 Conflict)**
 ```bash
-curl -X POST http://localhost:8080/api/v1/sensors/TEMP-001/readings -H "Content-Type: application/json" -d "{\"value\":25.5}"
+curl -X DELETE http://localhost:8080/api/v1/rooms/LIB-301
 ```
 
-**6. Filter Sensors by Type**
+**6. Delete Room Success (204)**
+```bash
+curl -X DELETE http://localhost:8080/api/v1/rooms/HALL-202
+```
+
+**7. Get All Sensors**
+```bash
+curl -X GET http://localhost:8080/api/v1/sensors
+```
+
+**8. Get Specific Sensor**
+```bash
+curl -X GET http://localhost:8080/api/v1/sensors/TEMP-001
+```
+
+**9. Filter Sensors by Type**
 ```bash
 curl -X GET "http://localhost:8080/api/v1/sensors?type=CO2"
 ```
 
-**7. Delete a Room**
+**10. Create a New Sensor**
 ```bash
-curl -X DELETE http://localhost:8080/api/v1/rooms/HALL-101
+curl -X POST http://localhost:8080/api/v1/sensors -H "Content-Type: application/json" -d "{\"id\":\"OCC-001\",\"type\":\"Occupancy\",\"status\":\"ACTIVE\",\"currentValue\":0.0,\"roomId\":\"LAB-101\"}"
+```
+
+**11. Create Sensor with Invalid Room (422)**
+```bash
+curl -X POST http://localhost:8080/api/v1/sensors -H "Content-Type: application/json" -d "{\"id\":\"TEST-001\",\"type\":\"Temperature\",\"status\":\"ACTIVE\",\"currentValue\":0.0,\"roomId\":\"FAKE-ROOM\"}"
+```
+
+**12. Add a Sensor Reading**
+```bash
+curl -X POST http://localhost:8080/api/v1/sensors/TEMP-001/readings -H "Content-Type: application/json" -d "{\"value\":25.5}"
+```
+
+**13. Get All Readings**
+```bash
+curl -X GET http://localhost:8080/api/v1/sensors/TEMP-001/readings
+```
+
+**14. Create Maintenance Sensor**
+```bash
+curl -X POST http://localhost:8080/api/v1/sensors -H "Content-Type: application/json" -d "{\"id\":\"MAINT-001\",\"type\":\"Temperature\",\"status\":\"MAINTENANCE\",\"currentValue\":0.0,\"roomId\":\"LAB-101\"}"
+```
+
+**15. Post Reading to Maintenance Sensor (403)**
+```bash
+curl -X POST http://localhost:8080/api/v1/sensors/MAINT-001/readings -H "Content-Type: application/json" -d "{\"value\":30.0}"
 ```
 
 
